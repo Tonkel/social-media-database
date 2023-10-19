@@ -31,3 +31,6 @@ const reactionSchema = new Schema(
 reactionSchema.virtual("createdAt").get(function () {
   return this.createdAt.toLocaleString();
 });
+
+//not making it a document, only exporting schema
+module.exports = reactionSchema;
