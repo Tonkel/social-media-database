@@ -5,9 +5,8 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed.js"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -23,9 +23,19 @@ const userSchema = new Schema(
       required: true,
       trim: true,
     },
-    thoughts: [],
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "thoughts",
+      },
+    ],
     // Thoughts._id
-    friends: [],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+      },
+    ],
     // this._id
   },
   {
