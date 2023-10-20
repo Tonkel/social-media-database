@@ -1,4 +1,4 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 const reactions = require("./reaction");
 
 const thoughtsSchema = new Schema(
@@ -15,7 +15,7 @@ const thoughtsSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now.toLocaleString(),
     },
     reactions: [reactions],
   },
@@ -27,13 +27,10 @@ const thoughtsSchema = new Schema(
   }
 );
 
-thoughtsSchema.virtual("createdAt").get(function () {
-  return this.createdAt.toLocaleString();
-});
 thoughtsSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const Thoughts = mongoose.model("Thoughts", thoughtsSchema);
+const Thoughts = model("thoughts", thoughtsSchema);
 
 module.exports = Thoughts;
