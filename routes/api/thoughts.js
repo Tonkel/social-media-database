@@ -31,6 +31,35 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/:thoughtId/reactions", async (req, res) => {
+  try {
+    const thought = await Thoughts.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { new: true }
+    );
+    res.status(200).json(thought);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+});
+
+router.post("/:userId/add/:thoughtId", async (req, res) => {
+  try {
+    const user = await Users.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { thoughts: req.params.thoughtId } },
+      { new: true }
+    );
+
+    const result = await user.populate("thoughts");
+
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+});
+
 router.put("/:id", async (req, res) => {
   try {
     const result = await Thoughts.findOneAndUpdate(
