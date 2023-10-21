@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const result = await Users.findById(req.params.id);
-    res.status(200).json(result.thoughts);
+    res.status(200).json(result);
   } catch (err) {
     res.status(404).json(err);
   }
@@ -89,13 +89,11 @@ router.delete("/:id", async (req, res) => {
     const result = await Users.findById(req.params.id);
     //crate list of thouhgt ids
     const userThoughts = result.thoughts;
-    console.log(userThoughts);
+
     //for loop deleting each thouhgt by id
     for (let i = 0; i < userThoughts.length; i++) {
       try {
         let removeThouhgts = await Thoughts.findByIdAndDelete(userThoughts[i]);
-        console.log(removeThouhgts);
-        // res.json(200).json(removeThouhgts);
       } catch (err) {
         res.status(404).json(err);
       }
