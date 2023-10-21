@@ -92,3 +92,16 @@ router.delete("/:id", async (req, res) => {
   }
 });
 module.exports = router;
+
+router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
+  try {
+    const thought = await Thoughts.findById(req.params.thoughtId);
+    //now remove raction by id
+    thought.reactions.pull({ _id: req.params.reactionId });
+    await thought.save();
+
+    res.status(200).json(thought);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+});
